@@ -98,14 +98,6 @@ The JavaScript code for WebGL.
 			 0.75, -0.75,  0.00,
 			 	 
     ];
-    
-    // The current primitive
-    
-    var currentPrimitive = null;
-    
-    var currentPrimitiveString = null;
-    
-    var numberOfElements = 0;
 
 	////////////////////////////////////////////////////////////////////
 	//
@@ -233,20 +225,42 @@ The JavaScript code for WebGL.
 		var n = null;
 		
 		switch(primitiveType){
-			
-			// COMPLETE THE CODE !!
-			
-			// ADD THE MISSING PRIMITIVES !!
-			
+			case gl.POINTS : 
+					n = (vertices.length / 3).toString();
+					numElements.innerHTML = n + " points";
+				break;					
+
 			case gl.LINES : 
 					n = (vertices.length / 6).toString();
 					numElements.innerHTML = n + " line segments";
 				break;
 					
-			case gl.POINTS : 
-					n = (vertices.length / 3).toString();
-					numElements.innerHTML = n + " points";
-				break;					
+			case gl.LINE_STRIP : 
+					n = (vertices.length / vertices.length).toString();
+					m = (vertices.length / 3 - 1).toString();
+					numElements.innerHTML = n + " line with " + m + " segments";
+				break;
+
+			case gl.LINE_LOOP : 
+					n = (vertices.length / vertices.length).toString();
+					m = (vertices.length / 3).toString();
+					numElements.innerHTML = n + " line with " + m + " segments";
+				break;
+			
+			case gl.TRIANGLES : 
+					n = parseInt((vertices.length / 3 / 3)).toString();
+					numElements.innerHTML = n + " triangles";
+				break;
+
+			case gl.TRIANGLE_FAN : 
+					n = Math.floor((vertices.length / 3 - 2)).toString();
+					numElements.innerHTML = n + " triangles";
+				break;
+
+			case gl.TRIANGLE_STRIP : 
+					n = Math.floor((vertices.length / 3 - 2)).toString();
+					numElements.innerHTML = n + " triangles";
+				break;
 		}	
 	}
 	
@@ -258,25 +272,40 @@ The JavaScript code for WebGL.
 			
 		var s = document.getElementById("primitive-selection");
 			
-		s.addEventListener("click", function(){
+		s.addEventListener("change", function(){
 				
 				// Getting the selection
 				
 				var prim = s.selectedIndex;
 				
 				switch(prim){
-
-					// COMPLETE THE CODE !!
-			
-					// ADD THE MISSING PRIMITIVES !!
-								
 					case 0 : primitiveType = gl.LINES;
 							 primitiveTypeString = "LINES";
+						break;
+					
+					case 1 : primitiveType = gl.LINE_STRIP;
+							 primitiveTypeString = "LINE_STRIP";
+						break;
+
+					case 2 : primitiveType = gl.LINE_LOOP;
+							 primitiveTypeString = "LINE_LOOP";
 						break;
 
 					case 3 : primitiveType = gl.POINTS;
 							 primitiveTypeString = "POINTS";
-						break;				
+						break;
+					
+					case 4 : primitiveType = gl.TRIANGLES;
+							 primitiveTypeString = "TRIANGLES";
+						break;
+
+					case 5 : primitiveType = gl.TRIANGLE_FAN;
+							 primitiveTypeString = "TRIANGLE_FAN";
+						break;
+
+					case 6 : primitiveType = gl.TRIANGLE_STRIP;
+							 primitiveTypeString = "TRIANGLE_STRIP";
+						break;
 					}
 				
 				// Redrawing
@@ -348,8 +377,9 @@ The JavaScript code for WebGL.
 			<option value="1">LINE_STRIP</option>
 			<option value="2">LINE_LOOP</option>
 			<option value="3">POINTS</option>
-
-			<!-- ADD THE MISSING PRIMITIVES !! -->
+			<option value="4">TRIANGLES</option>
+			<option value="5">TRIANGLE_FAN</option>
+			<option value="6">TRIANGLE_STRIP</option>
 
         </select> 
         

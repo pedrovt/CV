@@ -34,7 +34,7 @@ Using a vertex coordinate buffer and a vertex colour buffer.
 
     attribute vec3 aVertexColor;
     
-    varying vec4 vertexColor;
+    varying vec4 vertexColor;       // output. can variate between pixels
 
     void main(void) {
 		
@@ -52,7 +52,7 @@ Using a vertex coordinate buffer and a vertex colour buffer.
 	
 	precision mediump float;
 	
-	varying vec4 vertexColor;
+	varying vec4 vertexColor;       // input. can variabe between pixels
     
     void main(void) {
 		
@@ -99,11 +99,11 @@ The JavaScript code for WebGL.
     
     var colors = [
     
-			 1.00,  0.00,  0.00,
+			 1.00,  0.00,  0.00,        //if changed, will by default interpolate colour
 			 
-			 1.00,  0.00,  0.00,
+			 1.00,  1.00,  0.00,
 			 
-			 1.00,  0.00,  0.00,
+			 0.00,  1.00,  1.00,
 			 
     ];
 
