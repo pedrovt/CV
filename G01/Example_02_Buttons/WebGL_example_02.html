@@ -76,6 +76,14 @@ J. Madeira - May 2015
 				// Render the viewport
 				render();  
 			};
+
+			document.getElementById("yellow-button").onclick = function(){
+				// BLACK is the new background color
+				gl.clearColor(1.0, 1.0, 0.0, 1.0);
+				
+				// Render the viewport
+				render();  
+			};
       
         } catch (e) {
         }
@@ -122,6 +130,8 @@ J. Madeira - May 2015
 		<button id="white-button">White</button>
 
 		<button id="black-button">Black</button>
+
+		<button id="yellow-button">Yellow</button>
 
 	</div>
 

@@ -47,28 +47,42 @@ J. Madeira - May 2015
 				
 					switch(key){
 						case 49 : 
+						case 82 : 	//R
+						case 114 :
 							gl.clearColor(1.0, 0.0, 0.0, 1.0);
 							bgColor.innerHTML = "red";
 						break;
+
 						case 50 : 
+						case 71 : 	//G
+						case 103 : 	//G
 							gl.clearColor(0.0, 1.0, 0.0, 1.0);
 							bgColor.innerHTML = "green";
 						break;
+
+						case 66 : 	//B
+						case 98 : 	//B
 						case 51 : 
 							gl.clearColor(0.0, 0.0, 1.0, 1.0);
 							bgColor.innerHTML = "blue";
 						break;
+
 						case 52 : 
 							gl.clearColor(1.0, 1.0, 1.0, 1.0);
 							bgColor.innerHTML = "white";
 						break;
+						
 						case 53 : 
 							gl.clearColor(0.0, 0.0, 0.0, 1.0);
 							bgColor.innerHTML = "black";
 						break;
+
+						default:
+							bgColor.innerHTML = "Unknown key " + key;
+						break;
 					}
 			
-						// Render the viewport
+					// Render the viewport
 					render(); 
 				});
         } catch (e) {

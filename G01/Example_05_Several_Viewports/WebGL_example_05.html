@@ -20,81 +20,42 @@ J. Madeira - May 2015
 
 <script type="text/javascript">
 
-    var gl_01 = null; // WebGL context
+    var gl_arr = [null, null];   // WebGL context
     
-    var gl_02 = null; // WebGL context
-    
-    // FIRST GL Context
-    
-    function initWebGL_01(canvas) {
+    function initWebGL(idx, rgba, canvas) {
         try {
 				// Create the WebGL context
 				// Some browsers still need "experimental-webgl"
-			
-				gl_01 = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+                
+				gl_arr[idx] = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 			
 				// DEFAULT: The viewport occupies the whole canvas
 			
 				// The viewport (R,G,B,A) background color: BLACK
 		
-				gl_01.clearColor(0.0, 0.0, 0.0, 1.0);  
-			
+				gl_arr[idx].clearColor(rgba);  
+               
 				// Render the viewport
-				render_01(); 
+				render(idx); 
         } catch (e) {
         }
-        if (!gl_01) {
+        if (!gl_arr[idx]) {
             alert("Could not initialise WebGL, sorry! :-(");
         }
     }
 
-    function render_01() {
-		
+    function render(idx) {
 		// Clearing with the background color
 		
-        gl_01.clear(gl_01.COLOR_BUFFER_BIT);
-    }
-
-    // SECOND GL Context
-  
-    function initWebGL_02(canvas) {
-        try {
-				// Create the WebGL context
-				// Some browsers still need "experimental-webgl"
-			
-				gl_02 = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-			
-				// DEFAULT: The viewport occupies the whole canvas
-						
-				// The viewport (R,G,B,A) background color: RED
-		
-				gl_02.clearColor(1.0, 0.0, 0.0, 1.0);  
-			
-				// Render the viewport
-				render_02(); 
-        } catch (e) {
-        }
-        if (!gl_02) {
-            alert("Could not initialise WebGL, sorry! :-(");
-        }
-    }
-
-    function render_02() {
-		
-		// Clearing with the background color
-		
-        gl_02.clear(gl_02.COLOR_BUFFER_BIT);
+        gl_arr[idx].clear(gl_arr[idx].COLOR_BUFFER_BIT);
     }
     
     function runWebGL() {
         var canvas_01 = document.getElementById("canvas-01");
-        
-        initWebGL_01(canvas_01);
+        initWebGL(0, [1.0, 0.0, 0.0, 1.0], canvas_01);
         
         var canvas_02 = document.getElementById("canvas-02");
-        
-        initWebGL_02(canvas_02);
-
+        initWebGL(1, [1.0, 1.0, 0.0, 1.0], canvas_02);
     }
 
 </script>
