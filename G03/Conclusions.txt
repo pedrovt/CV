@@ -1,5 +1,2 @@
 Ex 13 : compôs a próxima transformação à esquerda
 Ex 14 : nº fixo de transformações. ordem fixa de transformações
-
-gl.enale( gl.CULL_FACE) -> Não mostrar o que é invisivel
-gl.cullFace(gl.BACK)

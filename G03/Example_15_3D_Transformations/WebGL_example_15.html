@@ -126,7 +126,11 @@ The JavaScript code for WebGL.
     var sy = 1.0;
     
     var sz = 1.0;
-     
+    
+	// 
+
+	var enabled = true;
+
     // For storing the vertices defining the triangles
     
     // ADD THE MISSING TRIANGLES !!
@@ -135,14 +139,14 @@ The JavaScript code for WebGL.
     
     var vertices = [
     
-			// FRONT FACE
+		 	// FRONT FACE
 			-0.25, -0.25, 0.25,
 			0.25, -0.25, 0.25,
 			0.25, 0.25, 0.25,
 
 			-0.25, -0.25, 0.25,
-			-0.25, 0.25, 0.25,
-			0.25, 0.25, 0.25,
+			0.25, 0.25, 0.25, 
+			-0.25, 0.25, 0.25, 
 			 
 			// TOP FACE
 			-0.25, 0.25, 0.25,
@@ -154,13 +158,13 @@ The JavaScript code for WebGL.
 			-0.25, 0.25, -0.25,
 			
 			// BOTTOM FACE
-			-0.25, -0.25, 0.25,
-			0.25, -0.25, 0.25,
+		 	-0.25, -0.25,  0.25,
 			-0.25, -0.25, -0.25,
+			 0.25, -0.25, -0.25,
 
-			0.25, -0.25, -0.25,
-			-0.25, 0.25, -0.25,
-			-0.25, -0.25, -0.25,
+			 0.25, -0.25, -0.25,
+			 0.25, -0.25,  0.25,
+			-0.25, -0.25, 0.25,
 			
 			// LEFT FACE
 			-0.25, 0.25, 0.25,
@@ -168,8 +172,8 @@ The JavaScript code for WebGL.
 			-0.25, -0.25, -0.25,
 
 			-0.25, 0.25, 0.25,
-			-0.25, 0.25, -0.25,
 			-0.25, -0.25, -0.25,
+			-0.25, 0.25, -0.25,
 			
 			// RIGHT FACE
 			0.25, 0.25, 0.25,
@@ -177,17 +181,17 @@ The JavaScript code for WebGL.
 			0.25, -0.25, -0.25,
 
 			0.25, 0.25, 0.25,
-			0.25, -0.25, 0.25,
 			0.25, -0.25, -0.25,
+			0.25, -0.25, 0.25,
 			
 			// BACK FACE
 			0.25, -0.25, -0.25,
-			-0.25, 0.25, -0.25,
 			-0.25, -0.25, -0.25,
+			-0.25, 0.25, -0.25,
 
 			0.25, -0.25, -0.25,
 			-0.25, 0.25, -0.25,
-			0.25, 0.25, -0.25
+			0.25, 0.25, -0.25  
     ];
     
     // And their colour
@@ -820,8 +824,10 @@ The JavaScript code for WebGL.
 			};      
 
 			face = function(){
-			
-				// COMPLETE THE CODE !!
+				if (enabled) gl.enable(gl.CULL_FACE);
+				else gl.disable(gl.CULL_FACE);
+
+				enabled = !enabled
 					
 				// Render the viewport
 				
@@ -901,7 +907,8 @@ The JavaScript code for WebGL.
 			// DEFAULT: The viewport background color is WHITE
 
 			// COMPLETE THE CODE : Enable BACK-FACE CULLING
-			
+			gl.enable(gl.CULL_FACE);
+			enabled = true; //FIXME use isEnabled
 			
         } catch (e) {
         }
