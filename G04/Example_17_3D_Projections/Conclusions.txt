@@ -1,0 +1,2 @@
+In 2D -> Clipping Window
+In 3D -> View Volume

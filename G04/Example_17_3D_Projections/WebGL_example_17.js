@@ -314,9 +314,11 @@ function drawScene() {
 		
 		pMatrix = ortho( -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 );
 		
-		// TO BE DONE !
+		// !TO BE DONE !
 		
 		// Allow the user to control the size of the view volume
+
+
 	}
 	else {	
 

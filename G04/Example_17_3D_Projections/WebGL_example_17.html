@@ -40,7 +40,7 @@ And the Projection Matrix.
     
     uniform mat4 uMVMatrix;
 
-    uniform mat4 uPMatrix;
+    uniform mat4 uPMatrix;		// projection matrix
 
     varying vec4 vertexColor;
     
@@ -54,7 +54,7 @@ And the Projection Matrix.
 		
 		// And multiplying by the Projection and the Model-View matrix
 		
-        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);		// now with projection matrix
         
         // Converting the RGB color value to RGBA
         

@@ -327,26 +327,22 @@ function drawScene() {
 	// Drawing the contents of the vertex buffer
 	
 	// primitiveType allows drawing as filled triangles / wireframe / vertices
-	
-	// COMPLETE THE CODE !!!
-	
-	// What are the possible values for the primitiveType variable?
-	
-	//if( ??? ) {  // What is the boolean expression ?
-		
+
+	if( primitiveType == gl.LINE_LOOP ) { 
 		// To simulate wireframe drawing!
-		
 		// No faces are defined! There are no hidden lines!
 		
-		// Taking the vertices 3 by 3 and drawing a LINE_LOOP
-		
-		// COMPLETE THE CODE
-	//}	
-	//else {
-				
+		// For each triangle (number of triangles is triangleVertexPositionBuffer.numItems / 3)
+		for (var i = 0; i < triangleVertexPositionBuffer.numItems / 3; i++) {
+			// Taking the vertices 3 by 3 and drawing a LINE_LOOP
+			// "Sliding window"
+			gl.drawArrays(primitiveType, 3 * i, triangleVertexPositionBuffer.numItems);
+		}
+	
+	}	
+	else {
 		gl.drawArrays(primitiveType, 0, triangleVertexPositionBuffer.numItems); 
-		
-	//}       
+	}       
 }
 
 //----------------------------------------------------------------------------
