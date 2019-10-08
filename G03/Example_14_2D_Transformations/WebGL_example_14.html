@@ -382,9 +382,10 @@ The JavaScript code for WebGL.
 	{
 		m = mat4();
 		
-		// COMPLETE THE CODE !!
-		
-		// SET THE ROTATION MATRIX ELEMENTS
+		m[0][0] = Math.cos(radians(degrees))		// cos -30
+		m[0][1] = Math.sin(radians(degrees))		// sen -30
+		m[1][0] = -Math.sin(radians(degrees))		// -sen -30
+		m[1][1] = Math.cos(radians(degrees))		// cos -30
 		
 		return m;	
 	}
@@ -393,10 +394,10 @@ The JavaScript code for WebGL.
 	{
 		m = mat4();
 		
-		// COMPLETE THE CODE !!
+		m[0][0] = sx;
+		m[1][1] = sy;
+		m[2][2] = sz;
 		
-		// SET THE SCALING MATRIX ELEMENTS
-				
 		return m;	
 	}
 
@@ -466,15 +467,17 @@ The JavaScript code for WebGL.
 		// Pay attention to the matrix multiplication order!!
 		
 		// First transformation ?
+		// Scaling
 		
 		// Last transformation ?
+		// Translation
 		
 		var mvMatrix = mult( rotationZZMatrix( angleZZ ), 
 		
 							 scalingMatrix( sx, sy, sz ) );
 							 
 		mvMatrix = mult( translationMatrix( tx, ty, tz ), mvMatrix );
-							 
+		
         // Passing the Model View Matrix to apply the current transformation
         
         var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
@@ -498,7 +501,7 @@ The JavaScript code for WebGL.
 		
 			// Button events
 			
-			document.getElementById("move-left-button").onclick = function(){
+			left = function(){
 				
 				// Updating
 				
@@ -509,11 +512,84 @@ The JavaScript code for WebGL.
 				drawScene();  
 			};
 
-			// COMPLETE THE CODE !!
-			
-			// HANDLE EVENTS FOR ADDITIONAL BUTTONS !!
-			
-			document.getElementById("reset-button").onclick = function(){
+			right = function(){
+				
+				// Updating
+				
+				tx += 0.25;
+				
+				// Render the viewport
+				
+				drawScene();  
+			};
+
+			up = function(){
+				
+				// Updating
+				
+				ty += 0.25;
+				
+				// Render the viewport
+				
+				drawScene();  
+			};
+
+			down = function(){
+				
+				// Updating
+				
+				ty -= 0.25;
+				
+				// Render the viewport
+				
+				drawScene();  
+			};
+
+			scale_up = function(){
+				// Updating
+				
+				sx *= 1.1;
+				sy *= 1.1;
+
+				// Render the viewport
+				
+				drawScene();  
+			};
+
+			scale_down = function(){
+				// Updating
+				
+				sx *= 0.9;
+				sy *= 0.9;
+				
+				// Render the viewport
+				
+				drawScene();  
+			};
+
+			rotate_cw = function(){
+				
+				// Updating
+				
+				angleZZ -= 30;
+				
+				// Render the viewport
+				
+				drawScene();  
+			};
+
+			rotate_ccw = function(){
+				
+				// Updating
+				
+				angleZZ += 30;
+				
+				// Render the viewport
+				
+				drawScene();  
+			};
+
+			reset = function(){
 				
 				// The initial values
     
@@ -534,7 +610,64 @@ The JavaScript code for WebGL.
 				// Render the viewport
 				
 				drawScene();  
-			};      
+			};  
+
+			// Button events
+			document.getElementById("move-left-button").onclick = left
+		    document.getElementById("move-right-button").onclick = right
+			document.getElementById("move-up-button").onclick = up 
+			document.getElementById("move-down-button").onclick = down 
+
+			document.getElementById("scale-up-button").onclick = scale_up
+			document.getElementById("scale-down-button").onclick = scale_down 
+
+			document.getElementById("rotate-cw-button").onclick = rotate_cw
+			document.getElementById("rotate-ccw-button").onclick = rotate_ccw 
+
+			document.getElementById("reset-button").onclick = reset 
+
+			// Key events
+			document.addEventListener("keydown", function(event) {
+				var key = event.keyCode; // ASCII
+
+				switch(key){
+					case 37:	
+						left()
+						break;
+					case 39:
+						right()
+						break;
+					case 38:
+						up()	
+						break;
+					case 40:
+						down()
+						break;
+
+					case 187:
+						scale_up()
+						break;
+					case 189:
+						scale_down()
+						break;
+
+					case 188:
+						rotate_cw()
+						break;
+						
+					case 190:
+						rotate_ccw()
+						break;
+
+					case 82:
+						reset()
+						break;
+
+					default:
+						break;
+					}
+				}
+			);   
 	}
 
 	// Initialization
@@ -584,16 +717,40 @@ The JavaScript code for WebGL.
 		
 		<p>Applying 2D transformations to the triangle</p>
 		        		
-		<canvas id="my-canvas" style="border:1px solid #000000;" width="350" height="350"></canvas>
+			<canvas id="my-canvas" style="border:1px solid #000000;" width="350" height="350"></canvas>
 
-		<p>  
+		<p>
 			
-		<button id="move-left-button">Move Left</button>
+			<button id="move-left-button">Move Left</button>
 
-		<button id="reset-button">Reset</button>
+			<button id="move-right-button">Move Right</button>
+
+			<button id="move-up-button">Move Up</button>
+
+			<button id="move-down-button">Move Down</button>
+
+		<p>
+			
+			<button id="scale-up-button">Scale Up</button>
+	
+			<button id="scale-down-button">Scale Down</button>
+	
+		</p>
+
+		<p>
+			
+			<button id="rotate-cw-button">Rotate Clockwise</button>
+			
+			<button id="rotate-ccw-button">Rotate Anticlockwise</button>
+
+	
+		</p>
+
+		<p>
+
+			<button id="reset-button">Reset</button>
 
 		</p>
-		
 	</div>
 
 </body>
