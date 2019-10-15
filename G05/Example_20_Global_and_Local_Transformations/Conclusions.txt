@@ -1,0 +1,3 @@
+Applied to each model at the GPU:
+    <------------- GLOBAL -------------> <-------- MODEL -------->
+    M projection * M global of the scene * M global of each model

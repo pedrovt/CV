@@ -96,7 +96,7 @@ var primitiveType = null;
  
 // To allow choosing the projection type
 
-var projectionType = 0;
+var projectionType = 1;
  
 // For storing the vertices defining the triangles
 
@@ -383,6 +383,20 @@ function drawScene() {
 	
 	gl.uniformMatrix4fv(pUniform, false, new Float32Array(flatten(pMatrix)));
 	
+	// Draw 4 cubes
+	drawModel(tx - 0.5, ty - 0.5, tz, sx, sy, sz, -angleXX, -angleYY, angleZZ);
+	drawModel(tx - 0.5, ty + 0.5, tz, sx, sy, sz, -angleXX, angleYY, angleZZ);
+	drawModel(tx + 0.5, ty - 0.5, tz, sx, sy, sz, +angleXX, -angleYY, angleZZ);
+	drawModel(tx + 0.5, ty + 0.5, tz, sx, sy, sz, angleXX, angleYY, angleZZ);
+
+	drawModel(tx - 0.5, ty - 0.5, tz - 1, sx, sy, sz, -angleXX, -angleYY, angleZZ);
+	drawModel(tx - 0.5, ty + 0.5, tz - 1, sx, sy, sz, -angleXX, angleYY, angleZZ);
+	drawModel(tx + 0.5, ty - 0.5, tz - 1, sx, sy, sz, +angleXX, -angleYY, angleZZ);
+	drawModel(tx + 0.5, ty + 0.5, tz - 1, sx, sy, sz, angleXX, angleYY, angleZZ);
+}
+
+function drawModel(tx, ty, tz, sx, sy, sz, angleXX, angleYY, angleZZ) {
+	
 	// Computing the Model-View Matrix
 	
 	// Pay attention to the matrix multiplication order!!
@@ -430,9 +444,8 @@ function drawScene() {
 				
 		gl.drawArrays(primitiveType, 0, triangleVertexPositionBuffer.numItems); 
 		
-	}       
+	} 
 }
-
 //----------------------------------------------------------------------------
 //
 //  NEW --- Animation
@@ -485,7 +498,7 @@ function animate() {
 		}
 		
 		// Rotations
-		// 90 * elapses / 1000.0 by trial and error
+		
 		if( rotationXX_ON ) {
 
 			angleXX += rotationXX_DIR * rotationXX_SPEED * (90 * elapsed) / 1000.0;
@@ -872,7 +885,19 @@ function setEventListeners(){
 		{
 			gl.enable( gl.CULL_FACE );
 		}
-	};      
+	};    
+	
+	document.getElementById("depth-test-button").onclick = function(){
+		
+		if( gl.isEnabled( gl.DEPTH_TEST ) )
+		{
+			gl.disable( gl.DEPTH_TEST );
+		}
+		else
+		{
+			gl.enable( gl.DEPTH_TEST );
+		}
+	};  
 }
 
 //----------------------------------------------------------------------------
@@ -908,6 +933,9 @@ function initWebGL( canvas ) {
 		// The next instruction is not needed...
 		
 		gl.cullFace( gl.BACK );
+
+		// Better depth test
+		gl.enable( gl.DEPTH_TEST );
 		
 	} catch (e) {
 	}

@@ -432,7 +432,7 @@ function drawScene() {
 	
 	gl.uniformMatrix4fv(pUniform, false, new Float32Array(flatten(pMatrix)));
 	
-	// NEW --- GLOBAL TRANSFORMATION FOR THE WHOLE SCENE
+	// NEW --- GLOBAL TRANSFORMATION FOR THE WHOLE SCENE 			// <- Important
 	
 	mvMatrix = mult( translationMatrix( 0, 0, globalTz ),
 	                 rotationYYMatrix( globalAngleYY ) );

@@ -1,0 +1,6 @@
+Back Face culling : verifies if a face is going to be hidden (back face) or not
+                    works with 1 convex model or several convex model outside the view line of other 
+                    when a model is partially hiding another, it's not enough, the last model to be drawn will be on the front, even if it's smaller and thus should be in the back
+
+                    Use depth test instead (completely substitutes the Back-Face Culling test)
+                    gl.enable( gl.DEPTH_TEST );

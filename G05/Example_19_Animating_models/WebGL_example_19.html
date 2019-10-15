@@ -14,7 +14,7 @@ J. Madeira - October 2015
 
 -->
 	
-<title>WebGL example 18 &mdash; Animation</title>
+<title>WebGL example 19 &mdash; Animation of Models</title>
 
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
@@ -87,7 +87,7 @@ Passing the Model-View Matrix and the Projection Matrix.
 
 <script type="text/javascript" src="initShaders.js"></script>
 
-<script type="text/javascript" src="WebGL_example_18.js"></script>
+<script type="text/javascript" src="WebGL_example_19.js"></script>
 
 </head>
 
@@ -95,7 +95,7 @@ Passing the Model-View Matrix and the Projection Matrix.
 
 	<div style="text-align: center">
 		
-		<p>Model animation using rotations</p>
+		<p>Models animation using rotations and translations</p>
 		
 		<canvas id="my-canvas" style="border:1px solid #000000;" width="350" height="350"></canvas>
 
@@ -175,7 +175,7 @@ Passing the Model-View Matrix and the Projection Matrix.
 		
         <select id="projection-selection">
 			<option value="0">Orthogonal Projection</option>
-			<option value="1">Perspective Projection</option>
+			<option value="1" selected>Perspective Projection</option>
         </select>
         
         </p>
@@ -196,6 +196,7 @@ Passing the Model-View Matrix and the Projection Matrix.
 		
 		<button id="face-culling-button">Back-Face-Culling ON/OFF</button>
 		
+		<button id="depth-test-button">Depth Test ON/OFF</button>
 		</p>
 				
 	</div>
