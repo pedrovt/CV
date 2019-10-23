@@ -527,8 +527,10 @@ function computeMidPoint( p1, p2 )
 {
     var result = vec3();
     
-    // TO DO !!
-        
+    result[0] = (p1[0] + p2[0]) / 2.0;
+    result[1] = (p1[1] + p2[1]) / 2.0;
+    result[2] = (p1[2] + p2[2]) / 2.0;
+
     return result;
 }
 
@@ -536,8 +538,10 @@ function computeCentroid( p1, p2, p3 )
 {
     var result = vec3();
     
-    // TO DO !!
-    
+    result[0] = (p1[0] + p2[0] + p3[0]) / 3.0;
+    result[1] = (p1[1] + p2[1] + p3[1]) / 3.0;
+    result[2] = (p1[2] + p2[2] + p3[2]) / 3.0;
+
     return result;
 }
 
@@ -545,5 +549,12 @@ function computeCentroid( p1, p2, p3 )
 
 function normalize( v )
 {
-    // TO DO !!
+    // Obtain norm
+    var norm = Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2) + Math.pow(v[2], 2) );
+    
+    // Normalize
+    v[0] = v[0] / norm;
+    v[1] = v[1] / norm; 
+    v[2] = v[2] / norm;
+
 }

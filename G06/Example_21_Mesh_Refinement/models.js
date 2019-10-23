@@ -103,7 +103,7 @@ function midPointRefinement( coordsArray,
     
     // Iterate through the original triangular faces
     
-    for( origIndex = 0; origIndex < origArrayLength; origIndex += 9 )
+    for( origIndex = 0; origIndex < origArrayLength; origIndex += 9 )			// for each triangle
     {
         /* Call the recursive subdivision function */
         
@@ -120,9 +120,10 @@ function midPointRefinement( coordsArray,
 }
 
 //----------------------------------------------------------------------------
-////  Recursive triangle subdivision, using the triangle centroid
+//  Recursive triangle subdivision, using the triangle centroid
 //
 
+// coordsArrays and colorsArray are output
 function recSubdivisionCentroid( v1, v2, v3, 
 								 c1, c2, c3,
 								 coordsArray,
@@ -131,7 +132,47 @@ function recSubdivisionCentroid( v1, v2, v3,
 
 	// Recursive centroid subdivision of one triangle
 	
-	// TO BE DONE !!
+	if( recursionDepth == 0 ) {
+		
+		// Storing coordinates and colors in the destination arrays
+ 
+        coordsArray.push( v1[0], v1[1], v1[2] );
+		
+		coordsArray.push( v2[0], v2[1], v2[2] );
+		
+		coordsArray.push( v3[0], v3[1], v3[2] );
+		
+		colorsArray.push( c1[0], c1[1], c1[2] );
+		
+		colorsArray.push( c2[0], c2[1], c2[2] );
+		
+		colorsArray.push( c3[0], c3[1], c3[2] );	    
+	}
+	else {
+		
+		// Compute the centroid and proceed recursively
+		
+        var centroid = computeCentroid( v1, v2, v3);
+        
+        // Colors are also averaged
+
+        var centroidColor = computeCentroid( c1, c2, c3 );
+
+        
+        // 3 recursive calls 
+
+        recSubdivisionCentroid( v1, v2, centroid, c1, c2, centroidColor,
+                                coordsArray, colorsArray, recursionDepth - 1 );
+
+        recSubdivisionCentroid( v2, v3, centroid, c2, c3, centroidColor,
+                                coordsArray, colorsArray, recursionDepth - 1 );
+
+        recSubdivisionCentroid( v1, centroid, v3, c1, centroidColor, c3,
+                                coordsArray, colorsArray, recursionDepth - 1 );
+
+
+	}
+	
 }
 
 //----------------------------------------------------------------------------
@@ -148,7 +189,40 @@ function centroidRefinement( coordsArray,
 	
 	// recursionDepth controls the final number of triangles and vertices 
     
-    // TO BE DONE !!
+	var origArrayLength = coordsArray.length;
+
+    // Copying
+    
+    var origCoords = coordsArray.slice();
+    
+    var origColors = colorsArray.slice();
+    
+    // Clearing the arrays
+    
+    coordsArray.splice( 0, origArrayLength );
+    
+    colorsArray.splice( 0, origArrayLength );
+    
+    var origIndex;
+    
+    // Each triangle is recursively subdivided into 3 triangles
+    
+    // Iterate through the original triangular faces
+    
+    for( origIndex = 0; origIndex < origArrayLength; origIndex += 9 )			// for each triangle
+    {
+        /* Call the recursive subdivision function */
+        
+        recSubdivisionCentroid( origCoords.slice( origIndex, origIndex + 3 ),
+								origCoords.slice( origIndex + 3, origIndex + 6 ),
+								origCoords.slice( origIndex + 6, origIndex + 9 ),
+								origColors.slice( origIndex, origIndex + 3 ),
+								origColors.slice( origIndex + 3, origIndex + 6 ),
+								origColors.slice( origIndex + 6, origIndex + 9 ),
+								coordsArray,
+								colorsArray,
+								recursionDepth );
+    }
 }
 
 //----------------------------------------------------------------------------
@@ -161,9 +235,23 @@ function moveToSphericalSurface( coordsArray ) {
 	// Each vertex is moved to the spherical surface of radius 1
     // and centered at (0,0,0)
     
-    // This is done by handling each vertex as if it were a prosition vector,
+    // This is done by handling each vertex as if it were a position vector,
     // and normalizing
+	console.log("Hello sphere-surf-button")
+	var origArrayLength = coordsArray.length;
 	
-	// TO BE DONE !!
+	var origIndex;
+    for( origIndex = 0; origIndex < origArrayLength; origIndex += 3 )			
+    {
+		var v = coordsArray.slice( origIndex, origIndex + 3 );
+		normalize( v );
+		
+		// Copy to the original coordsArray
+		for (var i = 0; i < 3; i++) {
+			coordsArray[origIndex + i] = v[i];
+		}
+    }
+	
+	
 	
 }
