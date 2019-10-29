@@ -1,0 +1,31 @@
+Modelo de Phong 
+-> Modelo aditivo
+    -> Componente ambiente
+    -> Componente difusa
+    -> Componente especular (brilho)
+
+-> Necessário vector perpendicular de norma 1 
+    Dado um triângulo com vertices v1, v2, v3
+    Definir vectores v12 e v13
+    Calcular v12 * v13 -> produto externo
+
+Foco Pontual
+-> Na direcção do eixo positivo dos ZZ'
+-> A uma distância infinita
+-> Luz branca
+
+Material do Modelo
+-> Coeficientes difuso e especular : reflexão do brilho (1 reflecte tudo, 0 não reflecte nada)
+-> Número de Phong : coeficiente de brilho, quanto maior melhor
+
+Iam=ka * Ia
+
+Idif=kd * Ifoco * (N*L)
+
+Atenção: splice != slice. Splice removes it
+
+Vector na direcção do foco de Luz
+-> 2 Casos
+    - Foco a distância infinita
+    - Foco a distância finita
+    

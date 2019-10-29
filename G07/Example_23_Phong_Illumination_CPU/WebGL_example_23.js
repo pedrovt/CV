@@ -281,22 +281,22 @@ function drawModel( angleXX, angleYY, angleZZ,
 	// TEST THE AMBIENT ILLUMINATION FIRST !!
 	
 	// Clearing the colors array
-	
-	 
-	 	
+	colors.splice(0, colors.length);
+	  	
 	// Compute the 3 components: AMBIENT, DIFFUSE and SPECULAR
-
-    // INITIALIZE EACH COMPONENT, with the constant terms
 
 	var ambientTerm = [ 0.0, 0.0, 0.0 ];
 	
 	var diffuseTerm = [ 0.0, 0.0, 0.0 ];
 	
 	var specularTerm = [ 0.0, 0.0, 0.0 ];
-		
+	
+    // INITIALIZE EACH COMPONENT, with the constant terms
     for( var i = 0; i < 3; i++ )
     {
-		// DO THE INITIALIZATION HERE !!
+		ambientTerm[i] = kAmbi[i] * ambient_Illumination[i];
+		diffuseTerm[i] = kDiff[i] * int_Light_Source[i];
+		specularTerm[i] = kSpec[i] * int_Light_Source[i];
     }
     
     // SMOOTH-SHADING 
@@ -310,57 +310,97 @@ function drawModel( angleXX, angleYY, angleZZ,
 		// For every vertex
 		
 		// GET COORDINATES AND NORMAL VECTOR
+		// point where illumination point is being calculated
+
+		var auxP = vertices.slice(vertIndex, vertIndex + 3 );	
 		
-		var auxP;
-		
-		var auxN;
+		var auxN = normals.slice(vertIndex, vertIndex + 3);
 
         // CONVERT TO HOMOGENEOUS COORDINATES
-
-		 
 		
-        // APPLY CURRENT TRANSFORMATION
+		auxP.push(1.0);
 
-        var pointP;  
+		auxN.push(0.0);
+		 
+        // APPLY CURRENT TRANSFORMATION (ROTATION, ETC.) -> IMPORTANT
 
-        var vectorN; 
+        var pointP = multiplyPointByMatrix(mvMatrix, auxP);  						
+
+        var vectorN = multiplyVectorByMatrix(mvMatrix, auxN); 
         
         // NORMALIZE vectorN
 
+		normalize(vectorN);
 
-        
         // DIFFUSE ILLUMINATION
-        
+	
         // Check if light source is directional or not
         
-        var vectorL;
+        var vectorL = vec3();
 
-        
+		if ( pos_Light_Source[3] == 0.0) {
+			// Directional light source
+			// Focus at infinite distance -> direction is already given 
+			vectorL = pos_Light_Source.slice(0, 3);
+		}
+		else {
+			for ( var i = 0 ; i < 3; i++ ) {
+				vectorL[i] = pos_Light_Source[i] - pointP[i];
+			}
+		}
+		
+		normalize(vectorL);
+
         // Compute the dot product
 
-        var cosNL;
+        var cosNL = dotProduct(vectorN, vectorL);
 
-        
+        if (cosNL < 0.0) {
+			cosNL = 0.0;		// No direct illumination
+		}
 
         // SEPCULAR ILLUMINATION 
 
-		var vectorV;
-		
+		var vectorV = vec3();
+
 		// Check the projection type
+		if ( projectionType == 0 ) {
+			// orthogonal
+			vectorV[2] = 1.0;
+		}
+		else {
+			// perspective
+			// viewer at (0, 0, 0)
+			vectorV = symmetric(pointP);	// quero vector do ponto para o observador
+		}
 		
+		normalize(vectorV);
 		 
 
-        var vectorH;
+		var vectorH = add(vectorL, vectorV);
+		
+		normalize(vectorH);
         
-        
-
-        var cosNH;
+		var cosNH = dotProduct(vectorN, vectorH);
+		
+		if (cosNH < 0.0 || cosNL <= 0.0 ) {
+			cosNH = 0.0;
+		}
 
         // Compute the color values and store in the colors array
         
-        // Avoid exceeding 1.0
-        
- 
+		// Copy ambient lighting
+		// Copy difuse lighting
+		for (var i = 0; i < 3; i++) {
+			colors[vertIndex + i] = ambientTerm[i];
+			
+			colors[vertIndex + i] += (diffuseTerm[i] * cosNL);
+
+			colors[vertIndex + i] += (specularTerm[i] * Math.pow(cosNH, nPhong));
+		}
+		
+
+		// Avoid exceeding 1.0
     }
 	// Associating the data to the vertex shader
 	
