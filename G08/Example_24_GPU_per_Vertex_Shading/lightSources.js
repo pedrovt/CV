@@ -118,10 +118,31 @@ LightSource.prototype.setAmbIntensity = function( r, g, b ) {
 	
 	this.ambientIntensity[2] = b;
 }
+// isRotOn #####################################################################
+LightSource.prototype.isRotXXOn = function() {
+	
+	return this.rotXXOn;
+}
 
 LightSource.prototype.isRotYYOn = function() {
 	
 	return this.rotYYOn;
+}
+
+LightSource.prototype.isRotZZOn = function() {
+	
+	return this.rotZZOn;
+}
+
+// switchRotOn ################################################################
+LightSource.prototype.switchRotXXOn = function() {
+	
+	this.rotXXOn = true;
+}
+
+LightSource.prototype.switchRotXXOff = function() {
+	
+	this.rotXXOn = false;
 }
 
 LightSource.prototype.switchRotYYOn = function() {
@@ -134,6 +155,27 @@ LightSource.prototype.switchRotYYOff = function() {
 	this.rotYYOn = false;
 }
 
+LightSource.prototype.switchRotZZOn = function() {
+	
+	this.rotZZOn = true;
+}
+
+LightSource.prototype.switchRotZZOff = function() {
+	
+	this.rotZZOn = false;
+}
+
+// get/set RotAngle ############################################################
+LightSource.prototype.getRotAngleXX = function() {
+	
+	return this.rotAngleXX;
+}
+
+LightSource.prototype.setRotAngleXX = function( angle ) {
+	
+	this.rotAngleXX = angle;
+}
+
 LightSource.prototype.getRotAngleYY = function() {
 	
 	return this.rotAngleYY;
@@ -143,6 +185,17 @@ LightSource.prototype.setRotAngleYY = function( angle ) {
 	
 	this.rotAngleYY = angle;
 }
+
+LightSource.prototype.getRotAngleZZ = function() {
+	
+	return this.rotAngleZZ;
+}
+
+LightSource.prototype.setRotAngleZZ = function( angle ) {
+	
+	this.rotAngleZZ = angle;
+}
+// #############################################################################
 
 LightSource.prototype.getRotationSpeed = function() {
 	
@@ -166,7 +219,7 @@ var lightSources = [];
 
 // Light source 0
 
-lightSources.push( new LightSource() );
+/* lightSources.push( new LightSource() );
 
 lightSources[0].setPosition( -1.0, 1.0, 1.0, 0.0 );
 
@@ -190,5 +243,18 @@ lightSources[1].setAmbIntensity( 0.0, 0.0, 0.2 );
 
 lightSources[1].switchRotYYOn();
 
-lightSources[1].setRotationSpeed( -0.5 );
+lightSources[1].setRotationSpeed( -0.5 ); */
 
+// Light source 3 : white, rotating from bottom to top
+
+lightSources.push( new LightSource() );
+
+lightSources[0].setPosition( 0.0, -10.0, 0.0, 1.0 );
+
+lightSources[0].setIntensity( 1.0, 1.0, 1.0 );
+
+lightSources[0].setAmbIntensity( 0.0, 0.0, 0.2 );
+
+lightSources[0].switchRotXXOn();
+
+lightSources[0].setRotationSpeed( 1.0 );

@@ -408,13 +408,25 @@ function drawScene() {
 
 		if( !lightSources[i].isOff() ) {
 				
-			// COMPLETE THE CODE FOR THE OTHER ROTATION AXES
+			if( lightSources[i].isRotXXOn() ) 
+			{
+				lightSourceMatrix = mult( 
+						lightSourceMatrix, 
+						rotationXXMatrix( lightSources[i].getRotAngleXX() ) );
+			}
 
 			if( lightSources[i].isRotYYOn() ) 
 			{
 				lightSourceMatrix = mult( 
 						lightSourceMatrix, 
 						rotationYYMatrix( lightSources[i].getRotAngleYY() ) );
+			}
+
+			if( lightSources[i].isRotZZOn() ) 
+			{
+				lightSourceMatrix = mult( 
+						lightSourceMatrix, 
+						rotationZZMatrix( lightSources[i].getRotAngleZZ() ) );
 			}
 		}
 		
@@ -482,12 +494,26 @@ function animate() {
 		// Rotating the light sources
 	
 		for(var i = 0; i < lightSources.length; i++ )
-	    {
+	    {	
+			if( lightSources[i].isRotXXOn() ) {
+
+				var angle = lightSources[i].getRotAngleXX() + lightSources[i].getRotationSpeed() * (90 * elapsed) / 1000.0;
+		
+				lightSources[i].setRotAngleXX( angle );
+			}
+
 			if( lightSources[i].isRotYYOn() ) {
 
 				var angle = lightSources[i].getRotAngleYY() + lightSources[i].getRotationSpeed() * (90 * elapsed) / 1000.0;
 		
 				lightSources[i].setRotAngleYY( angle );
+			}
+
+			if( lightSources[i].isRotZZOn() ) {
+
+				var angle = lightSources[i].getRotAngleZZ() + lightSources[i].getRotationSpeed() * (90 * elapsed) / 1000.0;
+		
+				lightSources[i].setRotAngleZZ( angle );
 			}
 		}
 }

@@ -397,11 +397,25 @@ function animate() {
 	
 		for(var i = 0; i < lightSources.length; i++ )
 	    {
+			if( lightSources[i].isRotXXOn() ) {
+
+				var angle = lightSources[i].getRotAngleXX() + lightSources[i].getRotationSpeed() * (90 * elapsed) / 1000.0;
+		
+				lightSources[i].setRotAngleXX( angle );
+			}
+
 			if( lightSources[i].isRotYYOn() ) {
 
 				var angle = lightSources[i].getRotAngleYY() + lightSources[i].getRotationSpeed() * (90 * elapsed) / 1000.0;
 		
 				lightSources[i].setRotAngleYY( angle );
+			}
+
+			if( lightSources[i].isRotZZOn() ) {
+
+				var angle = lightSources[i].getRotAngleZZ() + lightSources[i].getRotationSpeed() * (90 * elapsed) / 1000.0;
+		
+				lightSources[i].setRotAngleZZ( angle );
 			}
 		}
 }
