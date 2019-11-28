@@ -1,0 +1,10 @@
+-----------------------------------------------------------
+| ireland |                                               | 
+|---------|-----------------------------------------------|
+|  06-01  | Muito contraste?                              |
+|  06-02  | Pouco contraste -> usar contraste-stretching  |
+|  06-03  | OK, imagem original?                          |
+|  06-04  | Same as 06-03                                 |
+|  06-05  | Only 6 gray values (only 3 bits/pixel)        |
+|  06-06  | Reduced, but more, gray values                |
+|----------------------------------------------------------

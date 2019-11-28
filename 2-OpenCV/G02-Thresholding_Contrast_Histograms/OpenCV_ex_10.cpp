@@ -185,8 +185,10 @@ int main( int argc, char** argv )
     }
 
 	Mat imagem;
+    Mat novaImagem;
 
 	imagem = imread( argv[1], CV_LOAD_IMAGE_UNCHANGED );
+    novaImagem = imagem.clone();
 
 	if( ! imagem.data )
 	{
@@ -204,13 +206,26 @@ int main( int argc, char** argv )
 	    return -1;
 	}
 
-    // Janela
+    // Constrast streching
+    double min;
+    double max;
+    minMaxLoc(imagem, &min, &max);
 
+    int height = imagem.size().height;
+	int width = imagem.size().width;
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+				novaImagem.at<uchar>(i,j) = ((imagem.at<uchar>(i,j) - min)/(max-min)) * 255; 
+		}
+	}
+
+    // Janela
     namedWindow( "Imagem Original", CV_WINDOW_AUTOSIZE );
+    namedWindow( "Nova Imagem", CV_WINDOW_AUTOSIZE );
 
     // Visualizar
-
     imshow( "Imagem Original", imagem );
+    imshow( "Nova Imagem", novaImagem );
 
     // Imprimir alguma informacao
 
@@ -232,9 +247,34 @@ int main( int argc, char** argv )
 
     // Visualizar o histograma
 
-    namedWindow( "Histograma", CV_WINDOW_AUTOSIZE );
+    namedWindow( "Histograma (Original)", CV_WINDOW_AUTOSIZE );
 
-    imshow( "Histograma", histImage );
+    imshow( "Histograma (Original)", histImage );
+
+    /////////////////////////////////////////////////////////
+    // Imprimir alguma informacao
+
+    cout << "Nova Imagem" << endl;
+
+    printImageFeatures( novaImagem );
+
+    // HISTOGRAMA
+
+    Mat histograma2 = computeHistogram( novaImagem );
+
+    // Propriedades obtidas do histograma da imagem original
+
+    printHistogramFeatures( histograma2 );
+
+    // Criar uma imagem para representar o histograma
+
+    Mat histImage2 = createHistogramImage( histograma2 );
+
+    // Visualizar o histograma
+
+    namedWindow( "Histograma (Nova Imagem)", CV_WINDOW_AUTOSIZE );
+
+    imshow( "Histograma (Nova Imagem)", histImage2 );
 
     // Esperar
 

@@ -13,7 +13,7 @@
 
 // Remove it, if you are not using Windows and Visual Studio
 
-#include "stdafx.h"
+// #include "stdafx.h"
 
 
 #include <iostream>
@@ -85,6 +85,35 @@ void myMouse_GRAY( int event, int x, int y, int flags, void *userdata )
                 cv::imshow( "GRAY IMAGE", GRAY_IMAGE );
 
                 break;
+
+         case '4' :
+
+                // Polygon
+                
+                cv::Point pt[5];
+                pt[0].x = x - 20;
+                pt[0].y = y - 20;
+
+                pt[1].x = x + 20;
+                pt[1].y = y - 20;
+
+                pt[2].x = x + 30;
+                pt[2].y = y;
+
+                pt[3].x = x;
+                pt[3].y = y + 20;
+
+                pt[4].x = x - 30;
+                pt[4].y = y;
+
+                const cv::Point* ppt[1] = { pt };
+                int npt[] = { 5 };
+
+                cv::fillPoly( GRAY_IMAGE, ppt, npt, 1, cv::Scalar( 0, 255, 0 ));
+
+                cv::imshow( "GRAY IMAGE", GRAY_IMAGE );;
+
+                break;
          }
      }
 }
@@ -125,6 +154,35 @@ void myMouse_RGB( int event, int x, int y, int flags, void *userdata )
                  cv::imshow( "RGB IMAGE", RGB_IMAGE );
 
                  break;
+
+            case '4' :
+
+                // Polygon
+                
+                cv::Point pt[5];
+                pt[0].x = x - 20;
+                pt[0].y = y - 20;
+
+                pt[1].x = x + 20;
+                pt[1].y = y - 20;
+
+                pt[2].x = x + 30;
+                pt[2].y = y;
+
+                pt[3].x = x;
+                pt[3].y = y + 20;
+
+                pt[4].x = x - 30;
+                pt[4].y = y;
+
+                const cv::Point* ppt[1] = { pt };
+                int npt[] = { 5 };
+
+                cv::fillPoly( RGB_IMAGE, ppt, npt, 1, cv::Scalar( 0, 255, 0 ));
+
+                cv::imshow( "RGB IMAGE", RGB_IMAGE );
+
+                break;
          }
      }
 }
@@ -194,6 +252,8 @@ int main( void )
 
 		std::cout << "3 --- Square" << std::endl;
 
+        std::cout << "4 --- Polygon" << std::endl;
+
 		std::cout << "Q --- Quit" << std::endl;
 
 		std::cout << std::endl;
@@ -226,6 +286,12 @@ int main( void )
             case '3' :
 
 				std::cout << "SQUARE : Select the center with the mouse LEFT BUTTON" << std::endl;
+
+                break;
+            
+            case '4' :
+
+				std::cout << "POLYGON : Select the center with the mouse LEFT BUTTON" << std::endl;
 
                 break;
         }
