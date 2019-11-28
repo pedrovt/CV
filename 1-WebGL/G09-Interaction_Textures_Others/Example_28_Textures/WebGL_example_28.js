@@ -132,27 +132,27 @@ var textureCoords = [
 
           // Front face
           0.0, 0.0,
-          1.0, 0.0,
-          1.0, 1.0,
-          0.0, 1.0,
+          0.5, 0.0,
+          0.5, 0.5,
+          0.0, 0.5,
 
           // Back face
-          1.0, 0.0,
-          1.0, 1.0,
-          0.0, 1.0,
+          2.0, 0.0,
+          2.0, 2.0,
+          0.0, 2.0,
           0.0, 0.0,
 
           // Top face
-          0.0, 1.0,
+          0.0, -2.0,
           0.0, 0.0,
-          1.0, 0.0,
-          1.0, 1.0,
+          -2.0, 0.0,
+          -2.0, -2.0,
 
           // Bottom face
-          1.0, 1.0,
-          0.0, 1.0,
+          1000.0, 1000.0,
+          0.0, 1000.0,
           0.0, 0.0,
-          1.0, 0.0,
+          1000.0, 0.0,
 
           // Right face
           1.0, 0.0,
@@ -164,8 +164,10 @@ var textureCoords = [
           0.0, 0.0,
           1.0, 0.0,
           1.0, 1.0,
-          0.0, 1.0,
+          0.0, 1.0
 ];
+
+
 
 // Vertex indices defining the triangles
         
@@ -220,7 +222,7 @@ function initTexture() {
 		handleLoadedTexture(webGLTexture)
 	}
 
-	webGLTexture.image.src = "NeHe.gif";
+	webGLTexture.image.src = "rotate.jpg";
 }
 
 //----------------------------------------------------------------------------
