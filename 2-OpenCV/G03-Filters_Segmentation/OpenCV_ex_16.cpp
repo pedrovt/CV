@@ -13,11 +13,12 @@
 
 // Remove it, if you are not using Windows and Visual Studio
 
-#include "stdafx.h"
+// #include "stdafx.h"
 
+
+// #include <iostream>
 
 #include <iostream>
-
 
 #include "opencv2/core/core.hpp"
 
@@ -127,6 +128,21 @@ int main( int argc, char** argv )
     cv::namedWindow( "8 bits - Sobel 3 x 3 - Y", cv::WINDOW_AUTOSIZE );
 
     cv::imshow( "8 bits - Sobel 3 x 3 - Y", image_8_bits );
+
+	// Result
+
+    cv::Mat x, y, sobelImage_3x3_Result;
+
+	pow(sobelImage_3x3_X, 2, x);
+	pow(sobelImage_3x3_Y, 2, y);
+
+	sobelImage_3x3_Result = x + y;
+
+	cv::convertScaleAbs( sobelImage_3x3_Result, image_8_bits );
+
+    cv::namedWindow( "8 bits - Sobel 3 x 3 - Result", cv::WINDOW_AUTOSIZE );
+
+    cv::imshow( "8 bits - Sobel 3 x 3 - Result", image_8_bits );
 
     // Waiting
 

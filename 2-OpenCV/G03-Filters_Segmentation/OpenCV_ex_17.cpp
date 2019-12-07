@@ -1,7 +1,7 @@
 /*
- * OpenCV_ex_13.c
+ * OpenCV_ex_16.c
  *
- * AVERAGING FILTER
+ * THE SOBEL OPERATOR
  *
  * J. Madeira - Dec 2012 + Nov 2017
  */
@@ -16,8 +16,9 @@
 // #include "stdafx.h"
 
 
-#include <iostream>
+// #include <iostream>
 
+#include <iostream>
 
 #include "opencv2/core/core.hpp"
 
@@ -35,9 +36,9 @@
 
 // AUXILIARY  FUNCTION
 
-void printImageFeatures( const cv::Mat &image )
+void printImageFeatures(const cv::Mat &image)
 {
-    std::cout << std::endl;
+	std::cout << std::endl;
 
 	std::cout << "Number of rows : " << image.size().height << std::endl;
 
@@ -77,58 +78,40 @@ int main( int argc, char** argv )
 
 	if( originalImage.channels() > 1 )
 	{
-	    // Convert to a single-channel, intensity image
+		// Convert to a single-channel, intensity image
 
 		cv::cvtColor( originalImage, originalImage, cv::COLOR_BGR2GRAY, 1 );
 	}
 
-    // Create window
+	// Create window
 
-	cv::namedWindow( "Original Image", cv::WINDOW_AUTOSIZE );
+    cv::namedWindow( "Imagem Original", cv::WINDOW_AUTOSIZE );
 
-    // Display image
+	// Display image
 
-	cv::imshow( "Original Image", originalImage );
+	cv::imshow( "Imagem Original", originalImage );
 
-    // Print some image features
+	// Print some image features
 
 	std::cout << "ORIGINAL IMAGE" << std::endl;
 
     printImageFeatures( originalImage );
 
-    // 3 x 3 Averaging Filter
+    // 3 x 3 SOBEL Op.
 
-    cv::Mat averagedImage_3x3_1;
+    cv::Mat result;
 
-	cv::blur( originalImage, averagedImage_3x3_1, cv::Size( 3, 3 ) );
+    cv::Canny(originalImage, result, 1, 255);
 
-	cv::namedWindow( "Averaging Filter 3 x 3 - 1 Iter", cv::WINDOW_AUTOSIZE );
+    cv::namedWindow( "Canny 3 x 3 - X", cv::WINDOW_AUTOSIZE );
 
-	cv::imshow( "Averaging Filter 3 x 3 - 1 Iter", averagedImage_3x3_1 );
+    cv::imshow( "Canny 3 x 3 - X", result);
 
-	// 5 x 5 Averaging Filter
-
-    cv::Mat averagedImage_5x5_1;
-
-	cv::blur( originalImage, averagedImage_5x5_1, cv::Size( 5, 5 ) );
-
-	cv::namedWindow( "Averaging Filter 5 x 5 - 1 Iter", cv::WINDOW_AUTOSIZE );
-
-	cv::imshow( "Averaging Filter 5 x 5 - 1 Iter", averagedImage_5x5_1 );
-	
-	// 7 x 7 Averaging Filter
-
-    cv::Mat averagedImage_7x7_1;
-
-	cv::blur( originalImage, averagedImage_7x7_1, cv::Size( 7, 7 ) );
-
-	cv::namedWindow( "Averaging Filter 7 x 7 - 1 Iter", cv::WINDOW_AUTOSIZE );
-
-	cv::imshow( "Averaging Filter 7 x 7 - 1 Iter", averagedImage_7x7_1 );
+    
 
     // Waiting
 
-	cv::waitKey( 0 );
+    cv::waitKey( 0 );
 
 	// Destroy the windows
 

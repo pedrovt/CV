@@ -1,7 +1,7 @@
 /*
  * OpenCV_ex_13.c
  *
- * AVERAGING FILTER
+ * MEDIAN FILTER
  *
  * J. Madeira - Dec 2012 + Nov 2017
  */
@@ -98,33 +98,33 @@ int main( int argc, char** argv )
 
     // 3 x 3 Averaging Filter
 
-    cv::Mat averagedImage_3x3_1;
+    cv::Mat medianImage_3x3_1;
 
-	cv::blur( originalImage, averagedImage_3x3_1, cv::Size( 3, 3 ) );
+	cv::medianBlur( originalImage, medianImage_3x3_1, 3 );
 
-	cv::namedWindow( "Averaging Filter 3 x 3 - 1 Iter", cv::WINDOW_AUTOSIZE );
+	cv::namedWindow( "Median Filter 3 x 3 - 1 Iter", cv::WINDOW_AUTOSIZE );
 
-	cv::imshow( "Averaging Filter 3 x 3 - 1 Iter", averagedImage_3x3_1 );
+	cv::imshow( "Median Filter 3 x 3 - 1 Iter", medianImage_3x3_1 );
 
 	// 5 x 5 Averaging Filter
 
-    cv::Mat averagedImage_5x5_1;
+    cv::Mat medianImage_5x5_1;
 
-	cv::blur( originalImage, averagedImage_5x5_1, cv::Size( 5, 5 ) );
+	cv::medianBlur( originalImage, medianImage_5x5_1, 5 );
 
-	cv::namedWindow( "Averaging Filter 5 x 5 - 1 Iter", cv::WINDOW_AUTOSIZE );
+	cv::namedWindow( "Median Filter 5 x 5 - 1 Iter", cv::WINDOW_AUTOSIZE );
 
-	cv::imshow( "Averaging Filter 5 x 5 - 1 Iter", averagedImage_5x5_1 );
+	cv::imshow( "Median Filter 5 x 5 - 1 Iter", medianImage_5x5_1 );
 	
 	// 7 x 7 Averaging Filter
 
-    cv::Mat averagedImage_7x7_1;
+    cv::Mat medianImage_7x7_1;
 
-	cv::blur( originalImage, averagedImage_7x7_1, cv::Size( 7, 7 ) );
+	cv::medianBlur( originalImage, medianImage_7x7_1, 7 );
 
-	cv::namedWindow( "Averaging Filter 7 x 7 - 1 Iter", cv::WINDOW_AUTOSIZE );
+	cv::namedWindow( "Median Filter 7 x 7 - 1 Iter", cv::WINDOW_AUTOSIZE );
 
-	cv::imshow( "Averaging Filter 7 x 7 - 1 Iter", averagedImage_7x7_1 );
+	cv::imshow( "Median Filter 7 x 7 - 1 Iter", medianImage_7x7_1 );
 
     // Waiting
 
